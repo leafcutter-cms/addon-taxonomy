@@ -1,0 +1,8 @@
+/vendor
+/composer.lock
+/demo/assets/*
+/demo/cache/*
+!/demo/assets/README.md
+!/demo/cache/README.md
+/demo/debug.log
+env.yaml
