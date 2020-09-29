@@ -1,7 +1,19 @@
-# Welcome to a basic test site
+# Taxonomies addon demo
 
-You can use this content directory for development and samples of your addon can be used.
+{% for page in page.children %}
+* {{page|link}}
+{% endfor %}
+
+## Default taxonomies
+
+### Tags
+
+Tags can be created via a #hashtag or via metadata.
+
+Here's one that conflicts with the ones in the text: #testtag
 
 <!--@meta 
 name: Home
+taxonomy:
+    tags: [home, TestTag, demo]
  -->

@@ -1,0 +1,27 @@
+@import "@/~themes/theme-core/mixins/colors.scss";
+@import "@/~themes/theme-core/mixins/sizing.scss";
+
+.tag-cloud {
+    max-width: 30em;
+    text-align: center;
+
+    a {
+        display: inline-block;
+        vertical-align: middle;
+        padding: 0.25em;
+        text-decoration: none;
+
+        &:visited {
+            @include text-muted;
+            text-decoration: underline;
+        }
+
+        @include a-interaction-colors;
+        @include text-normal;
+
+        &:hover,
+        &:active {
+            text-decoration: underline;
+        }
+    }
+}

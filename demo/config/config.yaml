@@ -1,5 +1,5 @@
 site:
-  url: 'http://local.test/addon-template/demo/'
+  url: 'http://local.test/addon-taxonomy/demo/'
 
 directories:
   web: ${directories.base}
@@ -7,6 +7,11 @@ directories:
 theme:
   activate:
     - core/basic
+
+addons:
+  activate:
+    - taxonomy
+    - php-content
 
 templates:
   site:

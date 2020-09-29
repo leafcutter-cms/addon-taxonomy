@@ -2,7 +2,9 @@
 /composer.lock
 /demo/assets/*
 /demo/cache/*
+/demo/storage/*
 !/demo/assets/README.md
 !/demo/cache/README.md
+!/demo/storage/README.md
 /demo/debug.log
 env.yaml
