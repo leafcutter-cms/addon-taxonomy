@@ -1,6 +1,8 @@
 <?php
 namespace Leafcutter\Addons\Leafcutter\Taxonomy;
 
+use DOMElement;
+use DOMNode;
 use Flatrr\SelfReferencingFlatArray;
 use Leafcutter\DOM\DOMEvent;
 use Leafcutter\Indexer\AbstractIndex;
@@ -10,6 +12,10 @@ use Leafcutter\URL;
 class TaxonomyIndex extends AbstractIndex
 {
     protected $config;
+
+    const UNPARSED_TAGS = [
+        'head','style','code','textarea'
+    ];
 
     protected function order()
     {
@@ -76,6 +82,14 @@ class TaxonomyIndex extends AbstractIndex
         if (!$this->config['public']) {
             return;
         }
+        $parent = $event->getNode();
+        while ($parent = $parent->parentNode) {
+            if ($parent instanceof DOMElement) {
+                if (in_array($parent->tagName,static::UNPARSED_TAGS)) {
+                    return;
+                }
+            }
+        }
         foreach ($this->config['patterns'] as $p) {
             $newText = preg_replace_callback(
                 '/' . $p['pattern'] . '/',
@@ -139,7 +153,7 @@ class TaxonomyIndex extends AbstractIndex
         }
         // get urls, calculate page info
         $urls = $this->getByValue($term);
-        $perPage = $this->config['pagesperpage'] ?? 10;
+        $perPage = $this->config['pagesPerPage'] ?? 10;
         $pages = ceil(count($urls)/$perPage);
         if ($page > $pages) {
             return $this->leafcutter->pages()->error($url,404);
@@ -191,7 +205,7 @@ class TaxonomyIndex extends AbstractIndex
             },
             $urls
         );
-        $perPage = $this->config['termsperpage'] ?? 10;
+        $perPage = $this->config['termsPerPage'] ?? 10;
         $pages = ceil(count($urls)/$perPage);
         if ($page > $pages) {
             return $this->leafcutter->pages()->error($url,404);

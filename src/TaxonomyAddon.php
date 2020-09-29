@@ -16,8 +16,8 @@ class TaxonomyAddon extends \Leafcutter\Addons\AbstractAddon
             'tags' => [
                 'displayName' => 'Tags',
                 'public' => true,
-                'termsperpage' => 100,
-                'pagesperpage' => 10,
+                'termsPerPage' => 100,
+                'pagesPerPage' => 10,
                 'patterns' => [
                     'hashtag' => [
                         'pattern' => '#(?P<name>[a-zA-Z0-9_\-]+)',
@@ -32,8 +32,8 @@ class TaxonomyAddon extends \Leafcutter\Addons\AbstractAddon
             'categories' => [
                 'displayName' => 'Categories',
                 'public' => true,
-                'termsperpage' => 100,
-                'pagesperpage' => 10,
+                'termsPerPage' => 100,
+                'pagesPerPage' => 10,
                 'patterns' => [
                     'explicit' => [
                         'pattern' => '@category\{(?P<name>[^\}]+)\}',
