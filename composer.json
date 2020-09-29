@@ -1,6 +1,6 @@
 {
-    "name": "leafcutter/addon-template",
-    "description": "Leafcutter addon project template. Before beginning change extra/leafcutter-addon and the autoloader to your own namespace.",
+    "name": "leafcutter/addon-taxonomy",
+    "description": "Addon for creating taxonomies and hashtag-style tagging",
     "extra": {
         "leafcutter-addon": "Leafcutter\\Addons\\Leafcutter\\Taxonomy\\TaxonomyAddon"
     },
