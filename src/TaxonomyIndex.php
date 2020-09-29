@@ -2,7 +2,6 @@
 namespace Leafcutter\Addons\Leafcutter\Taxonomy;
 
 use DOMElement;
-use DOMNode;
 use Flatrr\SelfReferencingFlatArray;
 use Leafcutter\DOM\DOMEvent;
 use Leafcutter\Indexer\AbstractIndex;
@@ -14,7 +13,7 @@ class TaxonomyIndex extends AbstractIndex
     protected $config;
 
     const UNPARSED_TAGS = [
-        'head','style','code','textarea'
+        'head', 'style', 'code', 'textarea',
     ];
 
     protected function order()
@@ -22,8 +21,7 @@ class TaxonomyIndex extends AbstractIndex
         return '`sort` DESC';
     }
 
-    public function public(): bool
-    {
+    function public (): bool {
         return !!$this->config['public'];
     }
 
@@ -50,7 +48,7 @@ class TaxonomyIndex extends AbstractIndex
         // add new terms
         foreach ($terms as $term) {
             $sort = $page->meta('date.created') ?? $page->meta('date.modified') ?? time();
-            $sort = str_pad($sort,'0',STR_PAD_LEFT);
+            $sort = str_pad($sort, '0', STR_PAD_LEFT);
             $this->save($url, $term, $sort);
         }
     }
@@ -85,7 +83,7 @@ class TaxonomyIndex extends AbstractIndex
         $parent = $event->getNode();
         while ($parent = $parent->parentNode) {
             if ($parent instanceof DOMElement) {
-                if (in_array($parent->tagName,static::UNPARSED_TAGS)) {
+                if (in_array($parent->tagName, static::UNPARSED_TAGS)) {
                     return;
                 }
             }
@@ -154,9 +152,9 @@ class TaxonomyIndex extends AbstractIndex
         // get urls, calculate page info
         $urls = $this->getByValue($term);
         $perPage = $this->config['pagesPerPage'] ?? 10;
-        $pages = ceil(count($urls)/$perPage);
+        $pages = ceil(count($urls) / $perPage);
         if ($page > $pages) {
-            return $this->leafcutter->pages()->error($url,404);
+            return null;
         }
         // set up metadata and return
         $taxPage->meta('taxonomy_meta', [
@@ -170,7 +168,7 @@ class TaxonomyIndex extends AbstractIndex
             ],
         ]);
         $taxPage->meta('name', $term);
-        $taxPage->meta('title', $this->displayName().': '.$term);
+        $taxPage->meta('title', $this->displayName() . ': ' . $term);
         return $taxPage;
     }
 
@@ -206,9 +204,9 @@ class TaxonomyIndex extends AbstractIndex
             $urls
         );
         $perPage = $this->config['termsPerPage'] ?? 10;
-        $pages = ceil(count($urls)/$perPage);
-        if ($page > $pages) {
-            return $this->leafcutter->pages()->error($url,404);
+        $pages = ceil(count($urls) / $perPage);
+        if ($pages > 0 && $page > $pages) {
+            return null;
         }
         // set up metadata and return
         $taxPage->meta('taxonomy_meta', [
@@ -222,7 +220,7 @@ class TaxonomyIndex extends AbstractIndex
             ],
         ]);
         $taxPage->meta('name', $this->displayName());
-        $taxPage->meta('title', 'Page Taxonomy: '.$this->displayName());
+        $taxPage->meta('title', 'Page Taxonomy: ' . $this->displayName());
         return $taxPage;
     }
 }
