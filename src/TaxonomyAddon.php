@@ -67,6 +67,11 @@ class TaxonomyAddon extends \Leafcutter\Addons\AbstractAddon
         }
     }
 
+    public function index($name): ?TaxonomyIndex
+    {
+        return @$this->indexes[$name];
+    }
+
     public function onPageGet_namespace_taxonomy(URL $url): ?Page
     {
         $url->fixSlashes();
